@@ -99,26 +99,6 @@
         scroll-margin-top: 7rem;
     }
 
-    .graph-bars {
-        display: flex;
-        align-items: flex-end;
-        gap: var(--lyht-space-2);
-        height: 160px;
-    }
-
-    .graph-bars > * {
-        flex: 1;
-        background: var(--lyht-primary);
-        border-radius: var(--lyht-radius-sm) var(--lyht-radius-sm) 0 0;
-        opacity: .85;
-    }
-
-    .graph-bars > *:nth-child(6),
-    .graph-bars > *:nth-child(7) {
-        background: var(--lyht-success);
-        opacity: 1;
-    }
-
     .theme-toggle {
         gap: var(--lyht-space-2);
     }
@@ -131,7 +111,7 @@
 <!-- ============================================================== -->
 <!-- SITE HEADER                                                    -->
 <!-- ============================================================== -->
-<header class="page-header">
+<header class="page-header sticky-top">
     <div class="flex items-center gap-md">
         <strong class="display text-lg">LYHT UI</strong>
         <span class="badge">v1.0</span>
