@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LYHT UI — Dashboard + Website CSS Framework</title>
+<link rel="stylesheet" href="lyht-ui.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+    /* ---- Showcase-only additions. These sit on top of lyht-ui.css and
+       never redefine its classes — the framework styles everything below. ---- */
+
+    :root {
+        --lyht-font: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .display {
+        font-family: 'Space Grotesk', var(--lyht-font);
+        letter-spacing: -0.02em;
+    }
+
+    .mono {
+        font-family: 'JetBrains Mono', var(--lyht-font-mono);
+    }
+
+    .showcase-hero {
+        padding: var(--lyht-space-16) 0 var(--lyht-space-12);
+        border-bottom: 1px solid var(--lyht-border);
+    }
+
+    .showcase-hero h1 {
+        font-size: clamp(2.25rem, 4vw, 3.25rem);
+        max-width: 20ch;
+    }
+
+    .showcase-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        color: var(--lyht-text-subtle);
+        font-size: var(--lyht-text-xs);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        margin-bottom: var(--lyht-space-4);
+    }
+
+    .showcase-eyebrow::before {
+        content: "";
+        width: .5rem;
+        height: .5rem;
+        border-radius: 50%;
+        background: var(--lyht-success);
+    }
+
+    .code-block {
+        background: var(--lyht-bg-inset);
+        border: 1px solid var(--lyht-border);
+        border-radius: var(--lyht-radius);
+        padding: var(--lyht-space-3) var(--lyht-space-4);
+        font-size: var(--lyht-text-xs);
+        color: var(--lyht-text-muted);
+        overflow-x: auto;
+    }
+
+    .swatch-row {
+        display: flex;
+        align-items: center;
+        gap: var(--lyht-space-3);
+    }
+
+    .swatch {
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: var(--lyht-radius-sm);
+        border: 1px solid var(--lyht-border);
+        flex: 0 0 auto;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .swatch::-webkit-color-swatch-wrapper { padding: 0; }
+    .swatch::-webkit-color-swatch { border: none; border-radius: var(--lyht-radius-sm); }
+
+    .section-label {
+        color: var(--lyht-text-subtle);
+        font-size: var(--lyht-text-xs);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+    }
+
+    .kit-nav {
+        position: sticky;
+        top: calc(var(--lyht-header-height) + 1px);
+        display: flex;
+        gap: var(--lyht-space-2);
+        flex-wrap: wrap;
+        padding: var(--lyht-space-4) 0;
+        background: var(--lyht-bg);
+        z-index: var(--lyht-z-sticky);
+        border-bottom: 1px solid var(--lyht-border);
+    }
+
+    .kit-nav a {
+        padding: .375rem .75rem;
+        border-radius: var(--lyht-radius-pill);
+        font-size: var(--lyht-text-sm);
+        font-weight: 500;
+        color: var(--lyht-text-muted);
+        border: 1px solid var(--lyht-border);
+    }
+
+    .kit-nav a:hover {
+        color: var(--lyht-text);
+        background: var(--lyht-surface-hover);
+        text-decoration: none;
+    }
+
+    .kit-block {
+        padding: var(--lyht-space-8) 0;
+        border-bottom: 1px solid var(--lyht-border-muted);
+        scroll-margin-top: 7rem;
+    }
+
+    .fake-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: var(--lyht-space-2);
+        height: 160px;
+    }
+
+    .fake-bars > * {
+        flex: 1;
+        background: var(--lyht-primary);
+        border-radius: var(--lyht-radius-sm) var(--lyht-radius-sm) 0 0;
+        opacity: .85;
+    }
+
+    .fake-bars > *:nth-child(6),
+    .fake-bars > *:nth-child(7) {
+        background: var(--lyht-success);
+        opacity: 1;
+    }
+
+    .theme-toggle {
+        gap: var(--lyht-space-2);
+    }
+
+    @media (max-width: 767px) {
+        .kit-nav { display: none; }
+    }
+</style>
+</head>
+<body>
+
+<!-- ============================================================== -->
+<!-- SITE HEADER                                                    -->
+<!-- ============================================================== -->
+<header class="page-header">
+    <div class="flex items-center gap-md">
+        <strong class="display text-lg">LYHT UI</strong>
+        <span class="badge">v1.0</span>
+    </div>
+    <div class="flex items-center gap-sm">
+        <a href="https://github.com/" class="btn sm ghost desktop-only">View source</a>
+        <button class="btn sm theme-toggle flex items-center" id="themeToggle" data-tooltip="Toggle light / dark">
+            <span id="themeToggleLabel">Dark mode</span>
+        </button>
+    </div>
+</header>
+
+<main>
+
+    <!-- ============================================================== -->
+    <!-- HERO                                                           -->
+    <!-- ============================================================== -->
+    <section class="showcase-hero">
+        <div class="container container-xl">
+            <div class="split split-1-1 items-center" style="align-items:center;">
+                <div>
+                    <div class="showcase-eyebrow">Dashboard + website framework</div>
+                    <h1 class="display font-bold mb-4">Parents define structure.<br>Children inherit it.</h1>
+                    <p class="text-muted text-lg mb-6" style="max-width: 46ch;">
+                        LYHT UI is a plain-CSS system built around design tokens — one set of
+                        variables drives every card, button, and chart on this page, light or dark.
+                        No build step, no components to import. Just classes.
+                    </p>
+                    <div class="flex gap-md flex-wrap">
+                        <a href="lyht-ui.css" class="btn primary lg">Download lyht-ui.css</a>
+                        <a href="#kit" class="btn lg outline-primary">Browse the kit</a>
+                    </div>
+                </div>
+                <div class="card card-shadow">
+                    <div class="card-header">
+                        <span class="section-label">Quick start</span>
+                        <span class="badge success">3 lines</span>
+                    </div>
+                    <div class="code-block mono stack stack-xs">
+                        <div>&lt;link rel="stylesheet" href="lyht-ui.css"&gt;</div>
+                        <div>&lt;div class="dash grid-3 gap-lg"&gt;</div>
+                        <div>&nbsp;&nbsp;&lt;div class="card"&gt;...&lt;/div&gt;</div>
+                        <div>&lt;/div&gt;</div>
+                    </div>
+                    <div class="card-footer text-sm text-muted">
+                        No JavaScript required — this page adds a small amount of its own for the
+                        theme lab below, but every card, table, and button here is stock LYHT UI.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- LIVE DASHBOARD DEMO                                            -->
+    <!-- ============================================================== -->
+    <section class="py-6">
+        <div class="container container-xl">
+            <div class="dash-section-header mb-6">
+                <div>
+                    <div class="section-label mb-2">Built with LYHT UI, not just styled by it</div>
+                    <h2>A dashboard, running live</h2>
+                </div>
+                <span class="badge primary">.app shell + .stat + .table</span>
+            </div>
+
+            <div class="app rounded-lg border overflow-hidden shadow-md" style="min-height: 560px;">
+                <aside class="app-sidebar">
+                    <div class="sidebar">
+                        <div class="sidebar-header flex items-center gap-sm">
+                            <div class="avatar sm bg-primary text-white">N</div>
+                            <strong>Northline</strong>
+                        </div>
+                        <nav class="nav sidebar-body">
+                            <div class="nav-section">Workspace</div>
+                            <a href="#" class="active">Overview</a>
+                            <a href="#">Revenue</a>
+                            <a href="#">Customers</a>
+                            <a href="#">Reports</a>
+                            <div class="nav-section">Team</div>
+                            <a href="#">Members</a>
+                            <a href="#">Settings</a>
+                        </nav>
+                        <div class="sidebar-footer flex items-center gap-sm">
+                            <div class="avatar sm">JL</div>
+                            <div class="text-sm">
+                                <div class="font-semibold">Joey Lawson</div>
+                                <div class="text-muted text-xs">Admin</div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <div class="app-main bg-subtle">
+                    <div class="app-header px-6">
+                        <div class="flex items-center justify-between w-full">
+                            <div>
+                                <div class="text-sm text-muted">Overview</div>
+                                <strong>Last 30 days</strong>
+                            </div>
+                            <button class="btn sm primary">Export report</button>
+                        </div>
+                    </div>
+
+                    <div class="page-content" style="padding: var(--lyht-space-6);">
+                        <div class="dash responsive-3 grid-3 gap-lg mb-6">
+                            <div class="stat">
+                                <span class="stat-label">Revenue</span>
+                                <span class="stat-value">$48,204</span>
+                                <span class="stat-description stat-positive">↑ 12.4% vs last month</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Active customers</span>
+                                <span class="stat-value">1,286</span>
+                                <span class="stat-description stat-positive">↑ 3.1% vs last month</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Churn</span>
+                                <span class="stat-value">2.4%</span>
+                                <span class="stat-description stat-negative">↑ 0.3pt vs last month</span>
+                            </div>
+                        </div>
+
+                        <div class="split split-2-1 gap-lg">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>Revenue by week</strong>
+                                    <span class="badge success">On track</span>
+                                </div>
+                                <div class="fake-bars">
+                                    <div style="height: 38%;"></div>
+                                    <div style="height: 52%;"></div>
+                                    <div style="height: 45%;"></div>
+                                    <div style="height: 61%;"></div>
+                                    <div style="height: 58%;"></div>
+                                    <div style="height: 74%;"></div>
+                                    <div style="height: 82%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>Plan mix</strong>
+                                </div>
+                                <div class="stack stack-md">
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-2">
+                                            <span>Team</span><span class="text-muted">64%</span>
+                                        </div>
+                                        <div class="progress"><div style="--value: 64%;"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-2">
+                                            <span>Starter</span><span class="text-muted">28%</span>
+                                        </div>
+                                        <div class="progress success"><div style="--value: 28%;"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-2">
+                                            <span>Trial</span><span class="text-muted">8%</span>
+                                        </div>
+                                        <div class="progress warning"><div style="--value: 8%;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-6">
+                            <div class="card-header">
+                                <strong>Recent customers</strong>
+                                <a href="#" class="text-sm">View all</a>
+                            </div>
+                            <div class="table table-compact">
+                                <table>
+                                    <thead>
+                                        <tr><th>Customer</th><th>Plan</th><th>Status</th><th>MRR</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="flex items-center gap-sm"><div class="avatar sm">RB</div>Ridgeback Studio</td>
+                                            <td>Team</td>
+                                            <td><span class="badge success">Active</span></td>
+                                            <td>$249</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="flex items-center gap-sm"><div class="avatar sm">MF</div>Marsh &amp; Fen</td>
+                                            <td>Starter</td>
+                                            <td><span class="badge success">Active</span></td>
+                                            <td>$49</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="flex items-center gap-sm"><div class="avatar sm">OL</div>Overlook Coffee</td>
+                                            <td>Trial</td>
+                                            <td><span class="badge warning">Trialing</span></td>
+                                            <td>$0</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="flex items-center gap-sm"><div class="avatar sm">DK</div>Dune &amp; Key</td>
+                                            <td>Team</td>
+                                            <td><span class="badge danger">Past due</span></td>
+                                            <td>$249</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- THEME LAB — the signature element                             -->
+    <!-- ============================================================== -->
+    <section class="py-6 bg-subtle border-top border-bottom">
+        <div class="container container-xl">
+            <div class="split split-1-2 gap-lg" style="align-items:center;">
+                <div>
+                    <div class="section-label mb-2">This is the whole idea</div>
+                    <h2 class="mb-4">Move one token, watch everything follow</h2>
+                    <p class="text-muted mb-6">
+                        Every color on this page — the dashboard above, the buttons below, the
+                        badges in the table — reads from five CSS variables. Drag a swatch and
+                        the entire page repaints, because nothing here hardcodes a color; it all
+                        points back to <code class="mono text-sm">:root</code>.
+                    </p>
+                    <div class="stack stack-md">
+                        <div class="swatch-row">
+                            <input type="color" class="swatch" id="tokenPrimary" value="#0969da">
+                            <div>
+                                <div class="font-semibold text-sm">--lyht-primary</div>
+                                <div class="text-muted text-xs mono">links, primary buttons, active states</div>
+                            </div>
+                        </div>
+                        <div class="swatch-row">
+                            <input type="color" class="swatch" id="tokenSuccess" value="#1a7f37">
+                            <div>
+                                <div class="font-semibold text-sm">--lyht-success</div>
+                                <div class="text-muted text-xs mono">positive stats, active badges</div>
+                            </div>
+                        </div>
+                        <div class="swatch-row">
+                            <input type="color" class="swatch" id="tokenWarning" value="#9a6700">
+                            <div>
+                                <div class="font-semibold text-sm">--lyht-warning</div>
+                                <div class="text-muted text-xs mono">trialing / attention states</div>
+                            </div>
+                        </div>
+                        <div class="swatch-row">
+                            <input type="color" class="swatch" id="tokenDanger" value="#cf222e">
+                            <div>
+                                <div class="font-semibold text-sm">--lyht-danger</div>
+                                <div class="text-muted text-xs mono">past-due / destructive actions</div>
+                            </div>
+                        </div>
+                        <button class="btn sm ghost w-fit" id="resetTokens">Reset to defaults</button>
+                    </div>
+                </div>
+
+                <div class="card card-shadow">
+                    <div class="card-header">
+                        <strong>Live preview</strong>
+                        <span class="badge primary">Recalculates on drag</span>
+                    </div>
+                    <div class="stack stack-md">
+                        <div class="flex gap-sm flex-wrap">
+                            <button class="btn primary">Primary</button>
+                            <button class="btn success">Success</button>
+                            <button class="btn warning">Warning</button>
+                            <button class="btn danger">Danger</button>
+                        </div>
+                        <div class="flex gap-sm flex-wrap">
+                            <span class="badge primary">Active</span>
+                            <span class="badge success">Shipped</span>
+                            <span class="badge warning">Pending</span>
+                            <span class="badge danger">Blocked</span>
+                        </div>
+                        <div class="progress"><div style="--value: 70%;"></div></div>
+                        <div class="alert primary">
+                            <span>This alert, the buttons above, and the badges all repaint from the same four variables.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- COMPONENT KIT                                                  -->
+    <!-- ============================================================== -->
+    <section id="kit" class="py-6">
+        <div class="container container-xl">
+            <div class="mb-2">
+                <div class="section-label mb-2">Reference</div>
+                <h2>The kit</h2>
+            </div>
+
+            <nav class="kit-nav">
+                <a href="#kit-buttons">Buttons</a>
+                <a href="#kit-badges">Badges &amp; alerts</a>
+                <a href="#kit-forms">Forms</a>
+                <a href="#kit-nav-tabs">Nav &amp; tabs</a>
+                <a href="#kit-feedback">Feedback</a>
+                <a href="#kit-layout">Layout</a>
+            </nav>
+
+            <!-- BUTTONS -->
+            <div class="kit-block" id="kit-buttons">
+                <div class="split split-1-2 gap-lg">
+                    <div>
+                        <h3 class="mb-2">Buttons</h3>
+                        <p class="text-muted">One base class, one modifier for intent, one for size. <span class="mono text-sm">.btn.primary.lg</span> reads exactly like it looks.</p>
+                    </div>
+                    <div class="flex gap-md flex-wrap items-center">
+                        <button class="btn">Default</button>
+                        <button class="btn primary">Primary</button>
+                        <button class="btn success">Success</button>
+                        <button class="btn warning">Warning</button>
+                        <button class="btn danger">Danger</button>
+                        <button class="btn ghost">Ghost</button>
+                        <button class="btn outline-primary">Outline</button>
+                        <button class="btn primary" disabled>Disabled</button>
+                        <button class="btn primary sm">Small</button>
+                        <button class="btn primary lg">Large</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BADGES & ALERTS -->
+            <div class="kit-block" id="kit-badges">
+                <div class="split split-1-2 gap-lg">
+                    <div>
+                        <h3 class="mb-2">Badges &amp; alerts</h3>
+                        <p class="text-muted">The same four semantic names — primary, success, warning, danger — repeat across badges, alerts, buttons, and progress bars. Learn the palette once.</p>
+                    </div>
+                    <div class="stack stack-md">
+                        <div class="flex gap-sm flex-wrap">
+                            <span class="badge">Default</span>
+                            <span class="badge primary">Primary</span>
+                            <span class="badge success">Success</span>
+                            <span class="badge warning">Warning</span>
+                            <span class="badge danger">Danger</span>
+                        </div>
+                        <div class="alert success">
+                            <span>Deployed to production. Live for all customers.</span>
+                        </div>
+                        <div class="alert warning">
+                            <span>Trial ends in 3 days. Add a payment method to keep access.</span>
+                        </div>
+                        <div class="alert danger">
+                            <span>Payment failed. Update billing details to avoid suspension.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORMS -->
+            <div class="kit-block" id="kit-forms">
+                <div class="split split-1-2 gap-lg">
+                    <div>
+                        <h3 class="mb-2">Forms</h3>
+                        <p class="text-muted">Inputs, selects, and textareas are unstyled-tag-first — style a plain <span class="mono text-sm">&lt;input&gt;</span>, no wrapper class required.</p>
+                    </div>
+                    <form class="form stack stack-md">
+                        <label>Workspace name
+                            <input type="text" placeholder="Northline">
+                        </label>
+                        <label>Plan
+                            <select>
+                                <option>Starter</option>
+                                <option>Team</option>
+                                <option>Enterprise</option>
+                            </select>
+                        </label>
+                        <label>Notes
+                            <textarea placeholder="Add context for the team..."></textarea>
+                            <span class="form-help">Visible to workspace admins only.</span>
+                        </label>
+                        <label class="check flex-row">
+                            <input type="checkbox" checked> Email me weekly summaries
+                        </label>
+                        <button type="button" class="btn primary w-fit">Save changes</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- NAV & TABS -->
+            <div class="kit-block" id="kit-nav-tabs">
+                <div class="split split-1-2 gap-lg">
+                    <div>
+                        <h3 class="mb-2">Nav &amp; tabs</h3>
+                        <p class="text-muted">Both share the same active-state language: current color, underline or background, no separate "active" theme to maintain.</p>
+                    </div>
+                    <div class="stack stack-lg">
+                        <div class="tabs" id="demoTabs">
+                            <button class="active" data-tab="1">Overview</button>
+                            <button data-tab="2">Activity</button>
+                            <button data-tab="3">Settings</button>
+                        </div>
+                        <div class="breadcrumb">
+                            <a href="#">Workspace</a>
+                            <a href="#">Reports</a>
+                            <span class="text">Q3 summary</span>
+                        </div>
+                        <div class="pagination">
+                            <button>Prev</button>
+                            <button class="active">1</button>
+                            <button>2</button>
+                            <button>3</button>
+                            <button>Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FEEDBACK -->
+            <div class="kit-block" id="kit-feedback">
+                <div class="split split-1-2 gap-lg">
+                    <div>
+                        <h3 class="mb-2">Feedback</h3>
+                        <p class="text-muted">Modal, toast, dropdown, and tooltip all key off the same z-index scale, so nothing this page fires can end up stuck behind something else.</p>
+                    </div>
+                    <div class="flex gap-md flex-wrap">
+                        <button class="btn primary" id="openModal">Open modal</button>
+                        <button class="btn" id="fireToast">Fire a toast</button>
+                        <div class="dropdown">
+                            <button class="btn" id="dropdownTrigger">Options ▾</button>
+                            <div class="dropdown-menu none" id="dropdownMenu">
+                                <button>Rename</button>
+                                <button>Duplicate</button>
+                                <button class="text-danger">Delete</button>
+                            </div>
+                        </div>
+                        <span class="tooltip" data-tooltip="Rendered on hover or focus">
+                            <button class="btn ghost">Hover for a tooltip</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAYOUT -->
+            <div class="kit-block" id="kit-layout" style="border-bottom: 0;">
+                <div class="split split-1-2 gap-lg">
+                    <div>
+                        <h3 class="mb-2">Layout primitives</h3>
+                        <p class="text-muted"><span class="mono text-sm">.dash</span>, <span class="mono text-sm">.stack</span>, and <span class="mono text-sm">.split</span> cover grid, vertical rhythm, and two-column layout — three primitives instead of memorizing flex utilities.</p>
+                    </div>
+                    <div class="dash grid-3 gap-sm">
+                        <div class="card card-sm text-center text-sm">grid-3</div>
+                        <div class="card card-sm text-center text-sm">grid-3</div>
+                        <div class="card card-sm text-center text-sm">grid-3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ============================================================== -->
+<!-- MODAL & TOAST (hidden until triggered)                         -->
+<!-- ============================================================== -->
+<div class="modal-backdrop none" id="modalBackdrop">
+    <div class="modal">
+        <div>
+            <strong>Rename workspace</strong>
+        </div>
+        <div class="form stack stack-md">
+            <label>Workspace name
+                <input type="text" value="Northline">
+            </label>
+        </div>
+        <div class="flex justify-end gap-sm">
+            <button class="btn" id="closeModal">Cancel</button>
+            <button class="btn primary" id="saveModal">Save changes</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ============================================================== -->
+<!-- FOOTER                                                         -->
+<!-- ============================================================== -->
+<footer class="border-top py-6">
+    <div class="container container-xl flex items-center justify-between flex-wrap gap-md">
+        <span class="text-muted text-sm">LYHT UI — a plain-CSS dashboard and website framework. No build step.</span>
+        <a href="lyht-ui.css" class="btn sm outline-primary">Download lyht-ui.css</a>
+    </div>
+</footer>
+
+<script>
+(function () {
+    "use strict";
+
+    /* ---------- Theme toggle (persists via localStorage) ---------- */
+    var root = document.documentElement;
+    var toggle = document.getElementById('themeToggle');
+    var toggleLabel = document.getElementById('themeToggleLabel');
+
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            root.setAttribute('data-theme', 'dark');
+            toggleLabel.textContent = 'Light mode';
+        } else {
+            root.removeAttribute('data-theme');
+            toggleLabel.textContent = 'Dark mode';
+        }
+    }
+
+    var savedTheme = null;
+    try { savedTheme = localStorage.getItem('lyht-demo-theme'); } catch (e) {}
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+    toggle.addEventListener('click', function () {
+        var isDark = root.getAttribute('data-theme') === 'dark';
+        var next = isDark ? 'light' : 'dark';
+        applyTheme(next);
+        try { localStorage.setItem('lyht-demo-theme', next); } catch (e) {}
+    });
+
+    /* ---------- Theme lab: live token editing ---------- */
+    var tokenMap = {
+        tokenPrimary: '--lyht-primary',
+        tokenSuccess: '--lyht-success',
+        tokenWarning: '--lyht-warning',
+        tokenDanger: '--lyht-danger'
+    };
+    var defaults = {
+        tokenPrimary: '#0969da',
+        tokenSuccess: '#1a7f37',
+        tokenWarning: '#9a6700',
+        tokenDanger: '#cf222e'
+    };
+
+    Object.keys(tokenMap).forEach(function (id) {
+        var input = document.getElementById(id);
+        if (!input) return;
+        input.addEventListener('input', function () {
+            root.style.setProperty(tokenMap[id], input.value);
+        });
+    });
+
+    document.getElementById('resetTokens').addEventListener('click', function () {
+        Object.keys(tokenMap).forEach(function (id) {
+            root.style.removeProperty(tokenMap[id]);
+            var input = document.getElementById(id);
+            if (input) input.value = defaults[id];
+        });
+    });
+
+    /* ---------- Demo tabs ---------- */
+    var tabButtons = document.querySelectorAll('#demoTabs button');
+    tabButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            tabButtons.forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+        });
+    });
+
+    /* ---------- Dropdown ---------- */
+    var dropdownTrigger = document.getElementById('dropdownTrigger');
+    var dropdownMenu = document.getElementById('dropdownMenu');
+    dropdownTrigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('none');
+    });
+    document.addEventListener('click', function () {
+        dropdownMenu.classList.add('none');
+    });
+
+    /* ---------- Modal ---------- */
+    var modalBackdrop = document.getElementById('modalBackdrop');
+    document.getElementById('openModal').addEventListener('click', function () {
+        modalBackdrop.classList.remove('none');
+    });
+    document.getElementById('closeModal').addEventListener('click', function () {
+        modalBackdrop.classList.add('none');
+    });
+    document.getElementById('saveModal').addEventListener('click', function () {
+        modalBackdrop.classList.add('none');
+        fireToast('Workspace renamed', 'success');
+    });
+    modalBackdrop.addEventListener('click', function (e) {
+        if (e.target === modalBackdrop) modalBackdrop.classList.add('none');
+    });
+
+    /* ---------- Toast ---------- */
+    var toastContainer = document.getElementById('toastContainer');
+    function fireToast(message, variant) {
+        var toast = document.createElement('div');
+        toast.className = 'toast flex items-center justify-between gap-md';
+        toast.innerHTML = '<span>' + message + '</span><span class="badge ' + (variant || 'primary') + '">Done</span>';
+        toastContainer.appendChild(toast);
+        setTimeout(function () {
+            toast.style.transition = 'opacity 200ms ease';
+            toast.style.opacity = '0';
+            setTimeout(function () { toast.remove(); }, 200);
+        }, 2600);
+    }
+    document.getElementById('fireToast').addEventListener('click', function () {
+        fireToast('Report exported', 'primary');
+    });
+})();
+</script>
+
+</body>
+</html>
