@@ -684,7 +684,7 @@ samp {
 /* PAGE SYSTEM                                                        */
 /* ================================================================== */
 
-.nav {
+.navbar {
     position: sticky;
     top: 0;
     display: flex;
@@ -696,7 +696,7 @@ samp {
     border-bottom: 1px solid var(--lyht-border);
 }
 
-.nav a {
+.navbar a {
     padding: .375rem .75rem;
     border-radius: var(--lyht-radius-pill);
     font-size: var(--lyht-text-sm);
@@ -705,7 +705,7 @@ samp {
     border: 1px solid var(--lyht-border);
 }
 
-.nav a:hover {
+.navbar a:hover {
     color: var(--lyht-text);
     background: var(--lyht-surface-hover);
     text-decoration: none;
