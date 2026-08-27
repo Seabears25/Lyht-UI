@@ -92,32 +92,6 @@
         letter-spacing: .08em;
     }
 
-    .kit-nav {
-        position: sticky;
-        top: 0;
-        display: flex;
-        gap: var(--lyht-space-2);
-        flex-wrap: wrap;
-        padding: var(--lyht-space-4) 0;
-        background: var(--lyht-bg);
-        z-index: var(--lyht-z-sticky);
-        border-bottom: 1px solid var(--lyht-border);
-    }
-
-    .kit-nav a {
-        padding: .375rem .75rem;
-        border-radius: var(--lyht-radius-pill);
-        font-size: var(--lyht-text-sm);
-        font-weight: 500;
-        color: var(--lyht-text-muted);
-        border: 1px solid var(--lyht-border);
-    }
-
-    .kit-nav a:hover {
-        color: var(--lyht-text);
-        background: var(--lyht-surface-hover);
-        text-decoration: none;
-    }
 
     .kit-block {
         padding: var(--lyht-space-8) 0;
@@ -149,9 +123,7 @@
         gap: var(--lyht-space-2);
     }
 
-    @media (max-width: 767px) {
-        .kit-nav { display: none; }
-    }
+    
 </style>
 </head>
 <body>
@@ -458,7 +430,7 @@
                 <h2>The kit</h2>
             </div>
 
-            <nav class="kit-nav">
+            <nav class="nav">
                 <a href="#kit-buttons">Buttons</a>
                 <a href="#kit-badges">Badges &amp; alerts</a>
                 <a href="#kit-forms">Forms</a>
@@ -612,6 +584,17 @@
                         <div class="card card-sm text-center text-sm">grid-3</div>
                         <div class="card card-sm text-center text-sm">grid-3</div>
                         <div class="card card-sm text-center text-sm">grid-3</div>
+                    </div>
+                    <div class="dash grid-4 gap-sm">
+                        <div class="card card-sm text-center text-sm">grid-4</div>
+                        <div class="card card-sm text-center text-sm">grid-4</div>
+                        <div class="card card-sm text-center text-sm">grid-4</div>
+                        <div class="card card-sm text-center text-sm">grid-4</div>
+                    </div>
+                    <div class="dash grid-4 gap-sm">
+                        <div class="card card-sm text-center text-sm">grid-4</div>
+                        <div class="card card-sm text-center text-sm">grid-4</div>
+                        <div class="card card-sm text-center text-sm span-2">grid-4 span-2</div>
                     </div>
                 </div>
             </div>
