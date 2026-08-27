@@ -99,22 +99,22 @@
         scroll-margin-top: 7rem;
     }
 
-    .fake-bars {
+    .graph-bars {
         display: flex;
         align-items: flex-end;
         gap: var(--lyht-space-2);
         height: 160px;
     }
 
-    .fake-bars > * {
+    .graph-bars > * {
         flex: 1;
         background: var(--lyht-primary);
         border-radius: var(--lyht-radius-sm) var(--lyht-radius-sm) 0 0;
         opacity: .85;
     }
 
-    .fake-bars > *:nth-child(6),
-    .fake-bars > *:nth-child(7) {
+    .graph-bars > *:nth-child(6),
+    .graph-bars > *:nth-child(7) {
         background: var(--lyht-success);
         opacity: 1;
     }
@@ -261,14 +261,14 @@
                                     <strong>Revenue by week</strong>
                                     <span class="badge success">On track</span>
                                 </div>
-                                <div class="fake-bars">
-                                    <div style="height: 38%;"></div>
-                                    <div style="height: 52%;"></div>
-                                    <div style="height: 45%;"></div>
-                                    <div style="height: 61%;"></div>
-                                    <div style="height: 58%;"></div>
-                                    <div style="height: 74%;"></div>
-                                    <div style="height: 82%;"></div>
+                                <div class="graph-bars">
+                                    <div style="height: 38%;" class="tooltip" data-tooltip="%Num and Title"></div>
+                                    <div style="height: 52%;" class="tooltip" data-tooltip="%Num and Title"></div>
+                                    <div style="height: 45%;" class="tooltip" data-tooltip="%Num and Title"></div>
+                                    <div style="height: 61%;" class="tooltip" data-tooltip="%Num and Title"></div>
+                                    <div style="height: 58%;" class="tooltip" data-tooltip="%Num and Title"></div>
+                                    <div style="height: 74%;" class="tooltip" data-tooltip="%Num and Title"></div>
+                                    <div style="height: 82%;" class="tooltip" data-tooltip="%Num and Title"></div>
                                 </div>
                             </div>
 
